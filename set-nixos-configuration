@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+basedir=$(dirname $(readlink -f $0))
+
+rm -f /etc/nixos/*
+cp -sv $(readlink -f $basedir/flake.nix) /etc/nixos/
