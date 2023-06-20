@@ -54,6 +54,8 @@
     };
 
     programs.ssh = {
+      enable = true;
+
       extraConfig = ''
         Host *.ossystems.com.br
             HostkeyAlgorithms +ssh-rsa
