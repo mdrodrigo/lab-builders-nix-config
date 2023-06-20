@@ -18,7 +18,6 @@
         tmuxp
         tree
         htop
-        fzf
         wget
         unzip
         nmap
@@ -26,6 +25,15 @@
       ];
 
       stateVersion = "23.05";
+    };
+
+    programs.bash.enable = true;
+
+    programs.fzf = {
+      enable = true;
+      enableBashIntegration = true;
+
+      tmux.enableShellIntegration = true;
     };
 
     programs.git = {

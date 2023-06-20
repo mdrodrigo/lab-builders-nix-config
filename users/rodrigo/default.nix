@@ -19,7 +19,6 @@
   home-manager.users.rodrigo = {
     home = {
       packages = with pkgs; [
-        fzf
         gitRepo
         htop
         nmap
@@ -31,6 +30,15 @@
       ];
 
       stateVersion = "23.05";
+    };
+
+    programs.bash.enable = true;
+
+    programs.fzf = {
+      enable = true;
+      enableBashIntegration = true;
+
+      tmux.enableShellIntegration = true;
     };
 
     programs.neovim = {
