@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, ... }:
 
 {
   users.users.otavio = {
@@ -15,49 +15,6 @@
     password = "pw";
   };
 
-  home-manager.users.otavio = {
-    home = {
-      packages = with pkgs; [
-        tmux
-        tmuxp
-        tree
-        htop
-        fzf
-        wget
-        unzip
-        nmap
-        gitRepo
-      ];
-
-      stateVersion = "23.05";
-    };
-
-    programs.git = {
-      enable = true;
-
-      delta = {
-        enable = true;
-        options.syntax-theme = "base16-256";
-      };
-
-      extraConfig = {
-        core.sshCommand = "${pkgs.openssh}/bin/ssh -F ~/.ssh/config";
-      };
-    };
-
-    programs.ssh = {
-      enable = true;
-
-      extraConfig = ''
-        Host *.ossystems.com.br
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
-
-        Host *.lab.ossystems
-            ForwardAgent yes
-            ForwardX11 yes
-            ForwardX11Trusted yes
-      '';
-    };
-  };
+  home-manager.users.otavio._module.args.outputs = inputs.users-otavio;
+  home-manager.users.otavio.imports = [ "${inputs.users-otavio}/users/otavio/home/generic.nix" ];
 }

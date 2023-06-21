@@ -12,6 +12,9 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-hardware.url = "nixos-hardware";
     disko.url = "github:nix-community/disko";
+
+    # users
+    users-otavio.url = "github:otavio/nix-config";
   };
 
   outputs = { self, ... }@inputs:
