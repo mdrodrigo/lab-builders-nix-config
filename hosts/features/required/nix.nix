@@ -14,6 +14,7 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "otavio-nix-config.cachix.org-1:4HXl0KPGJ0+tkTUn/0tHRpz1wJst9MxovLjKbsPnqS4="
+        "ossystems-lab.cachix.org-1:9PiUGj4C78+ca23rLkOsXNrt8GIqakAlNZBrHwOA8pQ="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
       ];
 
