@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.05";
-    flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,23 +19,26 @@
   outputs = { self, ... }@inputs:
     let
       inherit (self) outputs;
-      lib = import ./lib { inherit inputs outputs; };
+      inherit (import ./lib { inherit inputs outputs; }) mkSystem mkInstallerForSystem;
+      systems = [ "x86_64-linux" "aarch64-linux" ];
+      forEachSystem = f: inputs.nixpkgs.lib.genAttrs systems (sys: f pkgsFor.${sys});
+      pkgsFor = inputs.nixpkgs.legacyPackages;
     in
     {
       overlays = import ./overlays { inherit inputs outputs; };
 
       nixosConfigurations = {
-        centrium = lib.mkSystem {
+        centrium = mkSystem {
           hostname = "centrium";
           system = "x86_64-linux";
         };
 
-        hyper = lib.mkSystem {
+        hyper = mkSystem {
           hostname = "hyper";
           system = "x86_64-linux";
         };
 
-        pikachu = lib.mkSystem {
+        pikachu = mkSystem {
           hostname = "pikachu";
           system = "x86_64-linux";
         };
@@ -50,34 +52,29 @@
           in
           packages // {
             ${system} = (packages.${system} or { }) // {
-              "${hostname}-install-iso" = lib.mkInstallerForSystem { inherit hostname targetConfiguration system; };
+              "${hostname}-install-iso" = mkInstallerForSystem { inherit hostname targetConfiguration system; };
             };
           })
-        { }
+        (forEachSystem (pkgs: import ./pkgs { inherit pkgs; }))
         (builtins.attrNames self.nixosConfigurations);
-    } // inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
-      let
-        inherit (self) outputs;
-        pkgs = import inputs.nixpkgs { inherit system outputs; };
-      in
-      {
-        formatter = pkgs.writeShellApplication {
-          name = "normalise_nix";
-          runtimeInputs = with pkgs; [ nixpkgs-fmt statix ];
-          text = ''
-            set -o xtrace
-            nixpkgs-fmt "$@"
-            statix fix "$@"
-          '';
-        };
 
-        checks = {
-          lint = pkgs.runCommand "lint-code" { nativeBuildInputs = with pkgs; [ nixpkgs-fmt deadnix statix ]; } ''
-            deadnix --fail ${./.}
-            #statix check ${./.} # https://github.com/nerdypepper/statix/issues/75
-            nixpkgs-fmt --check ${./.}
-            touch $out
-          '';
-        };
+      formatter = forEachSystem (pkgs: pkgs.writeShellApplication {
+        name = "normalise_nix";
+        runtimeInputs = with pkgs; [ nixpkgs-fmt statix ];
+        text = ''
+          set -o xtrace
+          nixpkgs-fmt "$@"
+          statix fix "$@"
+        '';
       });
+
+      checks = forEachSystem (pkgs: {
+        lint = pkgs.runCommand "lint-code" { nativeBuildInputs = with pkgs; [ nixpkgs-fmt deadnix statix ]; } ''
+          deadnix --fail ${./.}
+          #statix check ${./.} # https://github.com/nerdypepper/statix/issues/75
+          nixpkgs-fmt --check ${./.}
+          touch $out
+        '';
+      });
+    };
 }
