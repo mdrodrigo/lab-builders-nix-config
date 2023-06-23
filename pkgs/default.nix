@@ -9,4 +9,6 @@
       cp -r * $out/bin
     '';
   };
+
+  ossystems-tools = pkgs.callPackage ./ossystems-tools { };
 }
