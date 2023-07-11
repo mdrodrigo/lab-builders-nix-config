@@ -159,6 +159,7 @@
       extraConfig = ''
         Host code.ossystems.com.br
             HostName code.ossystems.io
+            User mdrodrigo
 
         Host code.ossystems.io
             User mdrodrigo
