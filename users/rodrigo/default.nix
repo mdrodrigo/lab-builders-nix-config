@@ -158,6 +158,9 @@
       enable = true;
       extraConfig = ''
         Host code.ossystems.com.br
+            HostName code.ossystems.io
+
+        Host code.ossystems.io
             User mdrodrigo
         
         Host *.ossystems.com.br

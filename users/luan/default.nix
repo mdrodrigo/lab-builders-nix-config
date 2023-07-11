@@ -66,11 +66,10 @@
 
       extraConfig = ''
         Host code.ossystems.com.br
-            User raflian
+            HostName code.ossystems.io
 
-        Host *.ossystems.com.br
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
+        Host code.ossystems.io
+            User raflian
 
         Host *.lab.ossystems
             ForwardAgent yes
