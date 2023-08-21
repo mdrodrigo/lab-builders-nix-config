@@ -13,7 +13,7 @@
     disko.url = "github:nix-community/disko";
 
     # users
-    users-otavio.url = "github:otavio/nix-config";
+    users-otavio.url = "github:otavio/nix-config/2ffea343a5bf4cba0191064900545072149500e0";
   };
 
   outputs = { self, ... }@inputs:
