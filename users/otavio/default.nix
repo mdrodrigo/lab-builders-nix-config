@@ -1,5 +1,3 @@
-{ inputs, ... }:
-
 {
   users.users.otavio = {
     description = "Otavio Salvador";
@@ -14,7 +12,4 @@
     # Default - used for bootstrapping.
     password = "pw";
   };
-
-  home-manager.users.otavio._module.args.outputs = inputs.users-otavio;
-  home-manager.users.otavio.imports = [ "${inputs.users-otavio}/users/otavio/home/generic.nix" ];
 }
