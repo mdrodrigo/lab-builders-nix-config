@@ -61,6 +61,7 @@ docker run \
        --device=/dev/net/tun \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
        -v /tmp/${USER}/keys:/tmp/${USER}/keys \
+       -v /srv/yocto:/srv/yocto \
        -v ${HOME}:${HOME} \
        --env DISPLAY=$DISPLAY \
        --env=HOST_UID=$(id -u) \
