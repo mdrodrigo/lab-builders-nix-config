@@ -31,6 +31,7 @@
 
   system.activationScripts.srv =
     ''
+      mkdir -p /srv/bitbake-prserv
       mkdir -p /srv/nfs/yocto/download-cache
       mkdir -p /srv/nfs/yocto/sstate-cache
       chmod -R g+s /srv/nfs/yocto/*
@@ -46,5 +47,17 @@
       /srv/nfs/yocto/download-cache 10.5.3.0/24(rw,sync,nohide,insecure,no_subtree_check) 10.5.4.0/24(rw,sync,nohide,insecure,no_subtree_check)
       /srv/nfs/yocto/sstate-cache   10.5.3.0/24(rw,sync,nohide,insecure,no_subtree_check) 10.5.4.0/24(rw,sync,nohide,insecure,no_subtree_check)
     '';
+  };
+
+  virtualisation.oci-containers.containers.bitbake-pkgserver = {
+    image = "bitbake-pkgserver";
+    imageFile = fetchTree {
+      type = "file";
+      url = "file:///home/rodrigo/bitbake-pkgserv.tar";
+      narHash = "sha256-B+wOshgeHKrNRRDIt7ca19/FQZ9kjGL8xGhtobOO3gI=";
+    };
+    autoStart = true;
+    volumes = [ "/srv/bitbake-prserv:/srv/bitbake-prserv:rw" ];
+    ports = [ "8585:8585" ];
   };
 }
