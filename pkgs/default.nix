@@ -11,4 +11,5 @@
   };
 
   ossystems-tools = pkgs.callPackage ./ossystems-tools { };
+  bitbakePackages = pkgs.callPackages ./bitbake { };
 }
