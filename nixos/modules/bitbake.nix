@@ -13,7 +13,7 @@ in
   options.services.bitbake = {
     enable = mkEnableOption "Bitbake service";
 
-    package = mkPackageOption pkgs "bitbake" {  };
+    package = mkPackageOption pkgs [ "bitbakePackages" "bitbake_2_8" ] { };
 
     hashServPort = mkOption {
       type = types.int;
