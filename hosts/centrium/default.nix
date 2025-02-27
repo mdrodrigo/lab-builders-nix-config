@@ -17,8 +17,6 @@
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "usbhid" ];
-      #supportedFilesystems = [ "nfs" ];
-      #kernelModules = [ "nfs" ];
     };
 
     kernelModules = [ "kvm-intel" ];
