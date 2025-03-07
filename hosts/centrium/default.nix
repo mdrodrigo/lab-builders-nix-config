@@ -36,13 +36,13 @@
     '';
 
   fileSystems."/srv/yocto/sstate-cache" = {
-    device = "10.5.4.130:/srv/nfs/yocto/sstate-cache";
+    device = "10.5.3.187:/srv/nfs/yocto/sstate-cache";
     fsType = "nfs";
     options = [ "auto" "rw" "defaults" "_netdev" "x-systemd.automount" ];
   };
 
   fileSystems."/srv/yocto/download-cache" = {
-    device = "10.5.4.130:/srv/nfs/yocto/download-cache";
+    device = "10.5.3.187:/srv/nfs/yocto/download-cache";
     fsType = "nfs";
     options = [ "auto" "rw" "defaults" "_netdev" "x-systemd.automount" ];
   };
