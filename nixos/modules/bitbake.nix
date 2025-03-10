@@ -48,6 +48,10 @@ in
       };
     };
 
+    networking.firewall.allowedTCPPorts = mkMerge ( mapAttrsToList
+        (name: settings: [ settings.hashServPort settings.prServPort ] )
+    cfg.versions);
+
     systemd.services = mkMerge (mapAttrsToList
       (name: settings: {
         "bitbake-hashserv-${name}" = {
