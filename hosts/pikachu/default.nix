@@ -6,6 +6,7 @@
     common-pc-ssd
   ] ++ [
     ../features/required
+    ../features/shared-state-yocto
     ../features/zram-swap.nix
     ./partitioning.nix
   ];
