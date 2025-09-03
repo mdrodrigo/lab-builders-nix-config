@@ -15,7 +15,7 @@ in
     enable = mkEnableOption "Bitbake service";
 
     versions = mkOption {
-      type = types.attrsOf (types.submodule ({ name, config, ... }: {
+      type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
           package = mkPackageOption pkgs [ "bitbakePackages" name ] { };
 
@@ -48,9 +48,9 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkMerge ( mapAttrsToList
-        (name: settings: [ settings.hashServPort settings.prServPort ] )
-    cfg.versions);
+    networking.firewall.allowedTCPPorts = mkMerge (mapAttrsToList
+      (_: settings: [ settings.hashServPort settings.prServPort ])
+      cfg.versions);
 
     systemd.services = mkMerge (mapAttrsToList
       (name: settings: {

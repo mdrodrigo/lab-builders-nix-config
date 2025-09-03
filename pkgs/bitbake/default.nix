@@ -1,7 +1,6 @@
 { lib
 , nix-update-script
 , python3
-, python3Packages
 , fetchFromGitHub
 }:
 
@@ -10,7 +9,7 @@ let
     let
       attrs' = builtins.removeAttrs attrs [ "version" "hash" ];
     in
-    python3Packages.buildPythonApplication
+    python3.pkgs.buildPythonApplication
       (rec{
         pname = "bitbake";
         inherit version;
@@ -31,7 +30,7 @@ let
           cp -r $src/bin $out
         '';
 
-        meta = with lib; {
+        meta = {
           description = "Bitbake";
           mainProgram = "bitbake";
           homepage = "https://github.com/openembedded/bitbake";
