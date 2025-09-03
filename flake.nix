@@ -52,7 +52,7 @@
               "${hostname}-install-iso" = mkInstallerForSystem { inherit hostname targetConfiguration system; };
             };
           })
-        (forEachSystem (pkgs: import ./pkgs { inherit pkgs; }))
+        { }
         (builtins.attrNames self.nixosConfigurations);
 
       formatter = forEachSystem (pkgs: pkgs.writeShellApplication {
