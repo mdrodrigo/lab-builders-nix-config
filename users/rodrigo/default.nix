@@ -24,6 +24,7 @@
         htop
         kas
         nmap
+        oelint-adv
         openfortivpn
         tmux
         tmuxp
